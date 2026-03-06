@@ -1,0 +1,60 @@
+cmake_minimum_required(VERSION 3.16)
+project(bulkRobustMatch LANGUAGES CXX)
+
+# ---- C++ standard ----
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# ---- Build type default (se non specificato) ----
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
+
+# ---- Gurobi ----
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}")
+find_package(GUROBI REQUIRED)
+
+message(STATUS "GUROBI_INCLUDE_DIRS   = ${GUROBI_INCLUDE_DIRS}")
+message(STATUS "GUROBI_LIBRARY        = ${GUROBI_LIBRARY}")
+message(STATUS "GUROBI_CXX_LIBRARY    = ${GUROBI_CXX_LIBRARY}")
+message(STATUS "GUROBI_CXX_DEBUG_LIB  = ${GUROBI_CXX_DEBUG_LIBRARY}")
+
+# ---- Executable ----
+add_executable(bulkRobustMatch
+        main.cpp
+        Instance.cpp
+        Problem.cpp
+        compactModel.cpp
+        assignmentModel.cpp
+        masterModel.cpp
+        BendersCut.cpp
+        SubProblem.cpp
+        matchingAlgorithm.cpp
+        linearRelaxation.cpp
+)
+
+# ---- Include dirs ----
+target_include_directories(bulkRobustMatch PRIVATE
+        ${GUROBI_INCLUDE_DIRS}
+        /usr/include/lemon
+)
+
+# ---- Compile options (solo GCC/Clang) ----
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(bulkRobustMatch PRIVATE
+            $<$<CONFIG:Release>:-O3 -march=native -ffast-math -funroll-loops>
+            $<$<CONFIG:Debug>:-g>
+    )
+endif()
+
+# ---- Link ----
+target_link_libraries(bulkRobustMatch PRIVATE
+        optimized ${GUROBI_CXX_LIBRARY}
+        debug     ${GUROBI_CXX_DEBUG_LIBRARY}
+        ${GUROBI_LIBRARY}
+        lemon
+        pthread
+        m
+        dl
+)
