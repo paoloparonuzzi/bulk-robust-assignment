@@ -83,13 +83,36 @@ bulkRobustMatch
 
 ## Running the Program
 
-The program expects an instance file as input.
-
-Example:
+The executable expects the following command-line arguments:
 
 ```bash
-./bulkRobustMatch ../instances/example_instance.txt
+./bulkRobustMatch <instance_file> <time_limit> <algorithm> <lp> <edges_per_scenario> <output_file>
 ```
+
+### Arguments
+
+| Argument | Description |
+|--------|-------------|
+| `instance_file` | Path to the input instance file |
+| `time_limit` | Time limit (in seconds) for the optimization |
+| `algorithm` | Algorithm variant to use (see paper for details) |
+| `lp` | Solve the LP relaxation (`1`) or the full MIP (`0`) |
+| `edges_per_scenario` | Number of edges in each uncertainty scenario |
+| `output_file` | Path to the file where results will be written |
+
+### Example
+
+./bulkRobustMatch ../instances/Match_20_0.txt 3600 0 0 3 results.txt
+
+
+This example runs the solver with:
+
+- a time limit of **3600 seconds**
+- **algorithm variant 0**
+- solving the **full MIP formulation** (`lp = 0`)
+- **3 uncertain edges per scenario**
+
+The results are written to `results.txt`.
 
 The folder `instances/` contains all instances used for testing.
 
