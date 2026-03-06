@@ -149,6 +149,5 @@ The provided instances allow testing the implementation and verifying that the c
 
 ## License
 
-This code is provided for research purposes.
-If you use this code in academic work, please cite the associated paper.
+This project is released under the MIT License.
 
