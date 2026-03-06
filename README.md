@@ -141,9 +141,12 @@ The folder `instances/` contains all instances used for testing.
 
 ## Reproducibility
 
-The implementation allows reproducing the computational experiments described in the associated paper.
+The computational experiments reported in the paper can be reproduced using the script:
 
-The provided instances allow testing the implementation and verifying that the code runs correctly.
+```bash
+script/run_all_assignment.sh
+```
+This script executes all the solver runs required to generate the experimental results.
 
 ---
 
