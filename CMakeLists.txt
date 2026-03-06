@@ -43,7 +43,7 @@ target_include_directories(bulkRobustMatch PRIVATE
 # ---- Compile options (solo GCC/Clang) ----
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(bulkRobustMatch PRIVATE
-            $<$<CONFIG:Release>:-O3 -march=native -ffast-math -funroll-loops>
+            $<$<CONFIG:Release>:-O3>
             $<$<CONFIG:Debug>:-g>
     )
 endif()
