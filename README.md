@@ -24,7 +24,7 @@ The code was developed and tested on **Linux** with the following dependencies:
 ## Installing Dependencies
 
 ### LEMON graph library
-
+The code relies on the LEMON graph library for max-flow and min-cut computations.
 On Ubuntu/Debian systems:
 
 ```bash
@@ -34,6 +34,8 @@ sudo apt-get install liblemon-dev
 On other systems, install LEMON from:
 
 https://lemon.cs.elte.hu
+
+The CMakeLists.txt assumes that the LEMON headers are available in a standard system location (e.g., /usr/include/lemon) and that the library lemon can be linked by the compiler.
 
 ---
 
@@ -118,33 +120,12 @@ The folder `instances/` contains all instances used for testing.
 
 ---
 
-## Repository Structure
-
-```
-.
-├── CMakeLists.txt
-├── main.cpp
-├── Problem.cpp
-├── Problem.h
-├── Instance.cpp
-├── Instance.h
-├── compactModel.cpp
-├── assignmentModel.cpp
-├── masterModel.cpp
-├── BendersCut.cpp
-├── SubProblem.cpp
-├── matchingAlgorithm.cpp
-├── linearRelaxation.cpp
-├── FindGUROBI.cmake
-└── instances/
-```
-
 ## Reproducibility
 
 The computational experiments reported in the paper can be reproduced using the script:
 
 ```bash
-script/run_all_assignment.sh
+script/RunExperiments.sh
 ```
 This script executes all the solver runs required to generate the experimental results.
 
